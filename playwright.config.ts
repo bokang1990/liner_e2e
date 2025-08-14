@@ -32,8 +32,46 @@ export default defineConfig({
     trace: 'on-first-retry',
   },
 
+  /* Global timeout settings */
+  timeout: 60000, // 60 seconds for each test
+
   /* Configure projects for major browsers */
   projects: [
+    // Setup 프로젝트 (카카오 인증 설정용)
+    {
+      name: 'kakao-setup',
+      testMatch: /kakao-auth\.setup\.ts/,
+      use: { ...devices['Desktop Chrome'] },
+    },
+
+    // Setup 프로젝트 (구글 인증 설정용)
+    {
+      name: 'google-setup',
+      testMatch: /google-auth\.setup\.ts/,
+      use: { ...devices['Desktop Chrome'] },
+    },
+
+    // 카카오 로그인이 필요한 테스트들
+    {
+      name: 'kakao-auth',
+      use: {
+        ...devices['Desktop Chrome'],
+        storageState: './auth/kakao-auth.json',
+      },
+      testMatch: /.*kakao.*\.spec\.ts/,
+    },
+
+    // Google 로그인이 필요한 테스트들
+    {
+      name: 'google-auth',
+      use: {
+        ...devices['Desktop Chrome'],
+        storageState: './auth/google-auth.json',
+      },
+      testMatch: /.*google.*\.spec\.ts/,
+    },
+
+    // 기본 크로미움 (인증 없음)
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },

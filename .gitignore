@@ -6,4 +6,11 @@ node_modules/
 /blob-report/
 /playwright/.cache/
 
+# Authentication files (contains sensitive session data)
+/auth/
+
+# Environment files
+.env
+.env.local
+
 .DS_Store
