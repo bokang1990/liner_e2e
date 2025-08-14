@@ -49,6 +49,6 @@ setup('authenticate with google', async () => {
   await page.waitForURL(/^https:\/\/getliner\.com\//);
   await expect(page.getByRole('banner').getByRole('button', { name: 'button' })).toBeVisible();
 
-  await context.storageState({ path: './auth/google-auth.json' });
+  await context.storageState({ path: './auth/auth.json' });
   console.log('✅ Google authentication session saved');
 });

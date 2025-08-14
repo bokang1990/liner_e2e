@@ -56,7 +56,7 @@ export default defineConfig({
       name: 'kakao-auth',
       use: {
         ...devices['Desktop Chrome'],
-        storageState: './auth/kakao-auth.json',
+        storageState: './auth/auth.json',
       },
       testMatch: /.*kakao.*\.spec\.ts/,
     },
@@ -66,9 +66,19 @@ export default defineConfig({
       name: 'google-auth',
       use: {
         ...devices['Desktop Chrome'],
-        storageState: './auth/google-auth.json',
+        storageState: './auth/auth.json',
       },
       testMatch: /.*google.*\.spec\.ts/,
+    },
+
+    // Google 로그인 후 input 테스트
+    {
+      name: 'input',
+      use: {
+        ...devices['Desktop Chrome'],
+        storageState: './auth/auth.json',
+      },
+      testMatch: /input\.spec\.ts/,
     },
 
     // 기본 크로미움 (인증 없음)

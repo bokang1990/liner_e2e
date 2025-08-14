@@ -21,6 +21,6 @@ setup('authenticate with kakao', async ({ page }) => {
   await expect(page.getByRole('banner').getByRole('button', { name: 'button' })).toBeVisible();
 
   // 세션 상태를 저장
-  await page.context().storageState({ path: './auth/kakao-auth.json' });
+  await page.context().storageState({ path: './auth/auth.json' });
   console.log('✅ Kakao authentication session saved');
 });

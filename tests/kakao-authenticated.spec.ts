@@ -11,26 +11,18 @@ test('kakao authenticated user actions', async ({ page }) => {
   // URL에서 로그인 상태 확인 (로그인된 사용자는 특정 URL로 리다이렉트됨)
   const currentUrl = page.url();
 
-  // 로그인 상태를 더 정확하게 확인하는 방법
   // 1. 쿠키 확인
   const cookies = await page.context().cookies();
   const sessionCookie = cookies.find(cookie => cookie.name === 'connect.sid');
 
-  if (sessionCookie) {
-    console.log('✅ User is already logged in with Kakao (session cookie found)');
-  } else {
-    // 2. localStorage 확인
-    const userInfo = await page.evaluate(() => {
-      return localStorage.getItem('statsig.stable_id.1242573613');
-    });
+  // expect를 사용하여 확실하게 테스트 실패시키기
+  expect(sessionCookie, 'User authentication failed: No session cookie found').toBeTruthy();
 
-    if (userInfo) {
-      console.log('✅ User is already logged in with Kakao (user info found in localStorage)');
-    } else {
-      console.log('❌ User authentication may have failed');
-    }
-  }
+  console.log('✅ User is already logged in with Google (session cookie found)');
 
   // 로그인된 사용자만 할 수 있는 추가 작업들을 여기에 추가
   // 예: 북마크 생성, 프로필 확인 등
+
+  // 버튼 중에서 Upgrade 버튼을 필터링
+  await expect(page.getByRole('button', { name: 'button' })).toBeVisible();
 });
